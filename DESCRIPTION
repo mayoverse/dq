@@ -1,0 +1,23 @@
+Package: dq
+Title: Tools for Data Quality
+Version: 3.2.1.9003
+Date: 2019-07-17
+Authors@R: c(
+    person("Ethan", "Heinzen", email = "heinzen.ethan@mayo.edu", role = c("aut", "cre")),
+    person("Curt", "Storlie", role = "aut"),
+    person("Raphael", "Mwangi", role = "aut"),
+    person("Che", "Ngufor", role = "ctb")
+  )
+Description: Tools for checking data set quality.
+Depends:
+    R (>= 3.4.2),
+    stats (>= 3.4.2)
+Imports:
+    Rcpp
+LinkingTo: Rcpp
+URL: https://github.com/eheinzen/dq
+BugReports: https://github.com/eheinzen/dq/issues
+License: GPL (>= 2)
+RoxygenNote: 6.1.1
+LazyData: true
+Encoding: UTF-8
