@@ -37,7 +37,7 @@ univariate <- function(dat, cutoff)
     outliers = outliers,
     pct.outliers = pct_outliers,
     trend.test = trend.test(dat)
-  ), class = "dq_univariate")
+  ), class = c("dq_univariate", "data.frame"))
 }
 
 format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
