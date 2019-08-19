@@ -1,6 +1,18 @@
 
+#' Plot \code{dq} objects
+#'
+#' @param x An object
+#' @param variable Character string: which variable to plot?
+#' @param data The original data.frame used in \code{\link{dq_univariate}}.
+#' @param cutoff The cutoff for outliers.
+#' @param ... Other arguments.
 #' @import ggplot2
+#' @name plot_dq
+NULL
+#> NULL
 
+#' @rdname plot_dq
+#' @export
 plot.dq_univariate <- function(x, variable, data, ...)
 {
   stopifnot(variable %in% names(data))
@@ -28,6 +40,8 @@ plot.dq_univariate <- function(x, variable, data, ...)
   p + theme(text = element_text(size = 15, face = "bold"))
 }
 
+#' @rdname plot_dq
+#' @export
 plot.dq_multivariate <- function(x, cutoff = 0.05, ...)
 {
   q <- stats::qnorm(p <- x$p.value)
@@ -42,6 +56,8 @@ plot.dq_multivariate <- function(x, cutoff = 0.05, ...)
     theme(text = element_text(size = 15, face = "bold"))
 }
 
+#' @rdname plot_dq
+#' @export
 plot.dq_pca <- function(x, ...)
 {
   dat <- data.frame(x = seq_along(x), y = x)

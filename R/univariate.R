@@ -14,6 +14,19 @@ calc_outlier <- function(x, cutoff)
   }
 }
 
+#' Compute univariate quality metrics
+#'
+#' @param dat The input data set
+#' @param cutoff The cutoff to determine outliers.
+#' @param digits,digits.pct How many digits to print
+#' @param x An R object
+#' @param ... Other arguments.
+#' @name dq_univariate
+NULL
+#> NULL
+
+#' @rdname dq_univariate
+#' @export
 dq_univariate <- function(dat, cutoff = 0.05)
 {
   ## Calculate missings (counts and percents)
@@ -40,6 +53,8 @@ dq_univariate <- function(dat, cutoff = 0.05)
   ), class = c("dq_univariate", "data.frame"))
 }
 
+#' @rdname dq_univariate
+#' @export
 format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
 {
   sn <- function(y) stats::setNames(y, x$variable)

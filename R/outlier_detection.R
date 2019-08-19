@@ -45,6 +45,19 @@ detect.mv.outliers.par <- function(X, mc.cores){
   return(unlist(pval, recursive = FALSE, use.names = FALSE))
 }
 
+#' Compute multivariate quality metrics
+#'
+#' @param dat The input data set
+#' @param mc.cores See \code{\link[parallel]{mclapply}}
+#' @param x An R object
+#' @param digits How many digits to print
+#' @param ... Other arguments.
+#' @name dq_multivariate
+NULL
+#> NULL
+
+#' @rdname dq_multivariate
+#' @export
 dq_multivariate <- function(dat, mc.cores = getOption("mc.cores", 8L))
 {
   out <- data.frame(
@@ -57,7 +70,8 @@ dq_multivariate <- function(dat, mc.cores = getOption("mc.cores", 8L))
   out
 }
 
-
+#' @rdname dq_multivariate
+#' @export
 format.dq_multivariate <- function(x, digits = 4, ...)
 {
   class(x) <- "data.frame"

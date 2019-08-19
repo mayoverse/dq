@@ -57,6 +57,18 @@ corr_miss <- function(dat)
   out[order(abs(out), decreasing = TRUE, na.last = TRUE)]
 }
 
+#' Compute pairwise quality metrics
+#'
+#' @param dat The input data set
+#' @param digits How many digits to print
+#' @param x An R object
+#' @param ... Other arguments.
+#' @name dq_pairwise
+NULL
+#> NULL
+
+#' @rdname dq_pairwise
+#' @export
 dq_pairwise <- function(dat)
 {
   structure(list(
@@ -65,6 +77,8 @@ dq_pairwise <- function(dat)
   ), class = "dq_pairwise")
 }
 
+#' @rdname dq_pairwise
+#' @export
 format.dq_pairwise <- function(x, digits = 3, ...)
 {
   data.frame(
