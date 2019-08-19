@@ -55,16 +55,23 @@ detect.mv.outliers.par <- function(X){
   return(pval)
 }
 
+multivariate <- function(dat)
+{
+  out <- data.frame(
+    Observation = 1:nrow(dat),
+    p.value = detect.mv.outliers.par(dat)
+  )
+  out <- out[order(out$p.value), ]
+  row.names(out) <- NULL
+  class(out) <- c("multivariate", "data.frame")
+  out
+}
 
-#
-# set.seed(22)
-# head(Hartnagel)
-#
-# XX <- X <- Hartnagel[,-1]
-# XX$mtheft.cat <- cut(Hartnagel$mtheft, breaks=seq(150,300,by=50))
-# detect.mv.outliers(X)
-# detect.mv.outliers(XX)
-#
-# detect.mv.outliers.par(X)
-# detect.mv.outliers.par(XX)
-#
+
+format.multivariate <- function(x, digits = 4, ...)
+{
+  class(x) <- "data.frame"
+  x$p.value <- formatC(x$p.value, digits = digits, format = "f")
+  x
+}
+
