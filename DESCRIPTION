@@ -14,7 +14,8 @@ Depends:
     stats (>= 3.4.2)
 Imports:
     Rcpp,
-    e1071
+    e1071,
+    parallel
 Suggests:
     ggplot2
 LinkingTo: Rcpp

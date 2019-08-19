@@ -1,10 +1,5 @@
-# library("carData")
-library("doMC")
 
-registerDoMC()
-options(cores=8)
-
-trend.break <- function(x, buffer.pct = 0.05, buffer = 5, max.ind=100){
+trend.break <- function(x, buffer.pct, buffer, max.ind){
   Fmax <- 0
   ind.max <- NA_integer_
 
@@ -60,24 +55,24 @@ trend.break <- function(x, buffer.pct = 0.05, buffer = 5, max.ind=100){
 
 
 
-trend.perm.test.par <- function(x, nperm=1000, buffer.pct = 0.05, buffer=5, max.ind=100){
+trend.perm.test.par <- function(x, nperm, buffer.pct, buffer, max.ind, mc.cores = mc.cores){
   ans <- trend.break(x, buffer.pct = buffer.pct, buffer = buffer, max.ind = max.ind)
   out <- list(Fmax = ans$Fmax, ind.max = ans$ind.max)
   if(!is.na(ans$ind.max))
   {
-    F.vec <- rep(0,nperm)
-    F.vec <- foreach(k=1:nperm, .combine=c)%dopar%{
+    F.vec <- mclapply(1:nperm, function(k) {
       x.k <- sample(x)
       trend.break(x.k, buffer.pct = buffer.pct, buffer = buffer, max.ind = max.ind)$Fmax
-    }
+    }, mc.cores = mc.cores)
+    F.vec <- unlist(F.vec, recursive = FALSE, use.names = TRUE)
     out$pval <- sum(F.vec > ans$Fmax)/nperm
   } else out$pval <- NA_real_
   out
 }
 
 
-trend.test <- function(dat, nperm = 100, buffer.pct = 0.05, buffer = 5, max.ind = 100)
+trend.test <- function(dat, nperm = 100, buffer.pct = 0.05, buffer = 5, max.ind = 100, mc.cores = getOption("mc.cores", 8L))
 {
   dat <- fix.dates(dat)
-  unname(lapply(dat, trend.perm.test.par, nperm = nperm, buffer.pct = buffer.pct, buffer = buffer, max.ind = max.ind))
+  unname(lapply(dat, trend.perm.test.par, nperm = nperm, buffer.pct = buffer.pct, buffer = buffer, max.ind = max.ind, mc.cores = mc.cores))
 }

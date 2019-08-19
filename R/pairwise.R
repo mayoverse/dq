@@ -57,7 +57,7 @@ corr_miss <- function(dat)
   out[order(abs(out), decreasing = TRUE, na.last = TRUE)]
 }
 
-pairwise <- function(dat)
+dq_pairwise <- function(dat)
 {
   structure(list(
     correlation = do_all_correlations(dat),

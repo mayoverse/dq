@@ -14,7 +14,7 @@ calc_outlier <- function(x, cutoff = 0.01)
   }
 }
 
-univariate <- function(dat, cutoff = 0.05)
+dq_univariate <- function(dat, cutoff = 0.05)
 {
   ## Calculate missings (counts and percents)
   nmiss <- colSums(is.na(dat))
