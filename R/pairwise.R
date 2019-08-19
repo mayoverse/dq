@@ -37,7 +37,7 @@ my_correlation <- function(x, y, data, ...)
 do_all_correlations <- function(dat)
 {
   combinations <- as.data.frame(t(combn(names(dat), m = 2)), stringsAsFactors = FALSE)
-  out <- purrr::map2_dbl(combinations$V1, combinations$V2, my_correlation, data = dat)
+  out <- mapply(my_correlation, combinations$V1, combinations$V2, MoreArgs = list(data = dat))
   names(out) <- paste(combinations$V1, "and", combinations$V2)
   return(out[order(abs(out), decreasing = TRUE, na.last = TRUE)])
 }
@@ -59,11 +59,17 @@ corr_miss <- function(dat)
 
 pairwise <- function(dat)
 {
-  correlation <- do_all_correlations(dat)
-  correlation.nas <- corr_miss(dat)
+  structure(list(
+    correlation = do_all_correlations(dat),
+    correlation.nas = corr_miss(dat)
+  ), class = "dq_pairwise")
+}
+
+format.dq_pairwise <- function(x, digits = 3, ...)
+{
   data.frame(
-    correlation = paste0(names(correlation), " (", formatC(correlation, digits = 3, format = "f"), ")"),
-    correlation.nas = c(paste0(names(correlation.nas), " (", formatC(correlation.nas, digits = 3, format = "f"), ")"),
-                        rep("", times = length(correlation) - length(correlation.nas)))
+    correlation = paste0(names(x$correlation), " (", formatC(x$correlation, digits = digits, format = "f"), ")"),
+    correlation.nas = c(paste0(names(x$correlation.nas), " (", formatC(x$correlation.nas, digits = digits, format = "f"), ")"),
+                        rep("", times = length(x$correlation) - length(x$correlation.nas)))
   )
 }
