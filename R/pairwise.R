@@ -4,26 +4,26 @@ fac2cont.cor <- function(x, y)
 {
   if(length(levels(as.factor(x))) > 100) return(NA_real_)
 
-  fit <- lm(y ~ as.factor(x))
+  fit <- stats::lm(y ~ as.factor(x))
   return(sqrt(summary(fit)$r.squared))
 }
 
 cramersV <- function(x, y, correct=FALSE, ...)
 {
   if(length(x) != length(y)) stop("vectors must have the same length")
-  stat <- chisq.test(x, y, correct = correct, ...)$statistic
+  stat <- stats::chisq.test(x, y, correct = correct, ...)$statistic
   denom <- length(x) * (min(length(unique(x)), length(unique(y))) - 1)
   return(as.numeric(sqrt(stat/denom)))
 }
 
 my_correlation <- function(x, y, data, ...)
 {
-  dat <- na.exclude(data[c(x, y)])
+  dat <- stats::na.exclude(data[c(x, y)])
   x <- dat[[x]]
   y <- dat[[y]]
 
   if(nrow(dat) < 4 || length(unique(x)) < 2 || length(unique(y)) < 2) return(NA_real_)
-  if(is.numericish(x) && is.numericish(y)) return(cor(as.numeric(x), as.numeric(y), use = 'pairwise'))
+  if(is.numericish(x) && is.numericish(y)) return(stats::cor(as.numeric(x), as.numeric(y), use = 'pairwise'))
   if(!is.numericish(x) && !is.numericish(y)) return(cramersV(x, y))
   if(is.numericish(x) && !is.numericish(y))
   {
@@ -36,7 +36,7 @@ my_correlation <- function(x, y, data, ...)
 
 do_all_correlations <- function(dat)
 {
-  combinations <- as.data.frame(t(combn(names(dat), m = 2)), stringsAsFactors = FALSE)
+  combinations <- as.data.frame(t(utils::combn(names(dat), m = 2)), stringsAsFactors = FALSE)
   out <- mapply(my_correlation, combinations$V1, combinations$V2, MoreArgs = list(data = dat))
   names(out) <- paste(combinations$V1, "and", combinations$V2)
   return(out[order(abs(out), decreasing = TRUE, na.last = TRUE)])
@@ -50,7 +50,7 @@ corr_miss <- function(dat)
   dat.na <- is.na(dat)
   idx <- 0 < colSums(dat.na) & colSums(dat.na) < nrow(dat)
   if(sum(idx) < 2) return(NULL)
-  cor.miss <- cor(dat.na[, idx])
+  cor.miss <- stats::cor(dat.na[, idx])
   cor.miss <- reshape2::melt(cor.miss)[as.vector(upper.tri(cor.miss, diag = FALSE)), ]
   out <- cor.miss$value
   names(out) <- paste(cor.miss$Var1, "and", cor.miss$Var2)

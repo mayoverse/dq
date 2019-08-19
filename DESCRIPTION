@@ -1,7 +1,7 @@
 Package: dq
 Title: Tools for Data Quality
-Version: 3.2.1.9003
-Date: 2019-07-17
+Version: 0.1.0
+Date: 2019-08-19
 Authors@R: c(
     person("Ethan", "Heinzen", email = "heinzen.ethan@mayo.edu", role = c("aut", "cre")),
     person("Curt", "Storlie", role = "aut"),
@@ -10,14 +10,15 @@ Authors@R: c(
   )
 Description: Tools for checking data set quality.
 Depends:
-    R (>= 3.4.2),
-    stats (>= 3.4.2)
+    R (>= 3.4.0),
+    stats (>= 3.4.0)
 Imports:
     Rcpp,
     e1071,
+    ggplot2,
     parallel
 Suggests:
-    ggplot2
+    reshape2
 LinkingTo: Rcpp
 URL: https://github.com/eheinzen/dq
 BugReports: https://github.com/eheinzen/dq/issues

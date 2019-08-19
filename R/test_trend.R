@@ -38,8 +38,8 @@ trend.break <- function(x, buffer.pct, buffer, max.ind){
     for(j in 1:n.ind){
       x1 <- x[1:b.ind[j]]
       x2 <- x[(b.ind[j]+1):n]
-      foo1 <- .lm.fit(cbind(1,1:b.ind[j]), x1)
-      foo2 <- .lm.fit(cbind(1,(b.ind[j]+1):n), x2)
+      foo1 <- stats::.lm.fit(cbind(1,1:b.ind[j]), x1)
+      foo2 <- stats::.lm.fit(cbind(1,(b.ind[j]+1):n), x2)
       xres <- c(foo1$residuals, foo2$residuals)
       SSE1 <- sum(xres^2)
       df1 <- n-4
@@ -60,7 +60,7 @@ trend.perm.test.par <- function(x, nperm, buffer.pct, buffer, max.ind, mc.cores 
   out <- list(Fmax = ans$Fmax, ind.max = ans$ind.max)
   if(!is.na(ans$ind.max))
   {
-    F.vec <- mclapply(1:nperm, function(k) {
+    F.vec <- parallel::mclapply(1:nperm, function(k) {
       x.k <- sample(x)
       trend.break(x.k, buffer.pct = buffer.pct, buffer = buffer, max.ind = max.ind)$Fmax
     }, mc.cores = mc.cores)

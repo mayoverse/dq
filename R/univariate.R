@@ -1,12 +1,12 @@
 
-calc_outlier <- function(x, cutoff = 0.01)
+calc_outlier <- function(x, cutoff)
 {
   if(is.numericish(x))
   {
     x <- as.numeric(x)
     mu <- mean(x, na.rm = TRUE)
-    std <- sd(x, na.rm = TRUE)
-    tmp <- pnorm(x, mean = mu, sd = std)
+    std <- stats::sd(x, na.rm = TRUE)
+    tmp <- stats::pnorm(x, mean = mu, sd = std)
     sum(tmp < cutoff/2 | tmp > 1-cutoff/2, na.rm = TRUE)
   } else
   {
