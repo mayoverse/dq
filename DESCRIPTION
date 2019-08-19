@@ -13,7 +13,10 @@ Depends:
     R (>= 3.4.2),
     stats (>= 3.4.2)
 Imports:
-    Rcpp
+    Rcpp,
+    e1071
+Suggests:
+    ggplot2
 LinkingTo: Rcpp
 URL: https://github.com/eheinzen/dq
 BugReports: https://github.com/eheinzen/dq/issues

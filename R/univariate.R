@@ -17,26 +17,58 @@ calc_outlier <- function(x, cutoff = 0.01)
 univariate <- function(dat, cutoff)
 {
   ## Calculate missings (counts and percents)
-  nmiss <- sort(colSums(is.na(dat)), decreasing = TRUE)
-  pct.miss <- sort(colMeans(is.na(dat)), decreasing = TRUE)
+  nmiss <- colSums(is.na(dat))
+  pct.miss <- 100*colMeans(is.na(dat))
 
   ## Kurtosis
-  kurt <- purrr::map_dbl(dat, function(x) if(is.numericish(x)) e1071::kurtosis(as.numeric(x), na.rm = TRUE) - 3 else NA)
-  kurt <- kurt[order(kurt, decreasing = TRUE, na.last = TRUE)]
-  skew <- purrr::map_dbl(dat, function(x) if(is.numericish(x)) e1071::skewness(as.numeric(x), na.rm = TRUE) else NA_real_)
-  skew <- skew[order(abs(skew), decreasing = TRUE, na.last = TRUE)]
+  kurt <- vapply(dat, function(x) if(is.numericish(x)) e1071::kurtosis(as.numeric(x), na.rm = TRUE) - 3 else NA_real_, NA_real_)
+  skew <- vapply(dat, function(x) if(is.numericish(x)) e1071::skewness(as.numeric(x), na.rm = TRUE) else NA_real_, NA_real_)
 
   ## outliers
-  outliers <- sort(purrr::map_int(dat, calc_outlier, cutoff = cutoff), decreasing = TRUE)
-  pct_outliers <- outliers/nrow(dat)
+  outliers <- vapply(dat, calc_outlier, NA_real_, cutoff = cutoff)
+  pct_outliers <- 100*outliers/nrow(dat)
+
+  structure(list(
+    variable = names(dat),
+    missings = nmiss,
+    pct.miss = pct.miss,
+    skewness = skew,
+    excess.kurt = kurt,
+    outliers = outliers,
+    pct.outliers = pct_outliers,
+    trend.test = trend.test(dat)
+  ), class = "dq_univariate")
+}
+
+format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
+{
+  sn <- function(y) stats::setNames(y, x$variable)
+  ## Calculate missings (counts and percents)
+  nmiss <- sort(sn(x$missings), decreasing = TRUE)
+  pct.miss <- sort(sn(x$pct.miss), decreasing = TRUE)
+
+  ## Kurtosis
+  kurt <- sn(x$excess.kurt)[order(kurt, decreasing = TRUE, na.last = TRUE)]
+  skew <- sn(x$skewness)[order(abs(skew), decreasing = TRUE, na.last = TRUE)]
+
+  ## outliers
+  o <- order(x$outliers, decreasing = TRUE)
+  outliers <- sn(x$outliers)[o]
+  pct_outliers <-sn(x$pct.outliers)[o]
+
+  trend.p <- vapply(x$trend.test, function(y) y$pval, NA_real_)
+  trend <- sn(x$trend.test[order(trend.p)])
 
   data.frame(
-    missings = paste0(names(nmiss), " (", nmiss, ", ", formatC(100*pct.miss, digits = 1, format = "f"), "%)"),
-    skewness = paste0(names(skew), " (", formatC(skew, digits = 3, format = "f"), ")"),
-    excess.kurt = paste0(names(kurt), " (", formatC(kurt, digits = 3, format = "f"), ")"),
-    outliers = paste0(names(outliers), " (", outliers, ", ", formatC(100*pct_outliers, digits = 1, format = "f"), "%)"),
-    trend.test = trend.test(dat),
+    missings = paste0(names(nmiss), " (", nmiss, ", ", formatC(pct.miss, digits = digits.pct, format = "f"), "%)"),
+    skewness = paste0(names(skew), " (", formatC(skew, digits = digits, format = "f"), ")"),
+    excess.kurt = paste0(names(kurt), " (", formatC(kurt, digits = digits, format = "f"), ")"),
+    outliers = paste0(names(outliers), " (", outliers, ", ", formatC(pct_outliers, digits = digits.pct, format = "f"), "%)"),
+    trend.test = paste0(
+      names(trend), " (Observation=",
+      vapply(trend, function(y) y$ind.max, NA_real_), ", p-value=",
+      formatC(vapply(trend, function(y) y$pval, NA_real_), digits = digits, format = "f"), ")"
+    ),
     stringsAsFactors = FALSE
   )
 }
-
