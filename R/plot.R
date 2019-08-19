@@ -28,6 +28,27 @@ plot.dq_univariate <- function(x, variable, data, ...)
   p + ggplot2::theme(text = ggplot2::element_text(size = 15, face = "bold"))
 }
 
+plot.dq_multivariate <- function(x, cutoff = 0.05, ...)
+{
+  q <- qnorm(p <- x$p.value)
+  expected <- qnorm(ppoints(nrow(x)))
+  ggplot2::ggplot(data.frame(x = expected, y = q, color = factor(p < cutoff, levels = c(FALSE, TRUE))),
+                  ggplot2::aes(x = x, y = y, color = color)) +
+    ggplot2::geom_abline(slope = 1, intercept = 0, color = "red") +
+    ggplot2::geom_point(show.legend = FALSE) +
+    ggplot2::scale_color_manual(values = c("black", "red")) +
+    ggplot2::xlab("Theoretical Normal Quantiles") +  ggplot2::ylab("Normal Quantiles of P-values") +
+    ggplot2::ggtitle("QQ plot of Multivariate Outliers") +
+    ggplot2::theme(text = element_text(size = 15, face = "bold"))
+}
 
-
-
+plot.dq_pca <- function(x, ...)
+{
+  dat <- data.frame(x = seq_along(x), y = x)
+  ggplot2::ggplot(dat, ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_line() +
+    ggplot2::geom_point() +
+    ggplot2::ggtitle("Scree Plot of PCAs") +
+    ggplot2::xlab("PCA") + ggplot2::ylab("Variance Explained") +
+    ggplot2::theme(text = element_text(size = 15, face = "bold"))
+}
