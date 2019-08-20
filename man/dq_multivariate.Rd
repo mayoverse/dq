@@ -7,7 +7,7 @@
 \usage{
 dq_multivariate(dat, mc.cores = getOption("mc.cores", 8L))
 
-\method{format}{dq_multivariate}(x, digits = 4, ...)
+\method{format}{dq_multivariate}(x, digits.pval = 4, ...)
 }
 \arguments{
 \item{dat}{The input data set}
@@ -16,9 +16,9 @@ dq_multivariate(dat, mc.cores = getOption("mc.cores", 8L))
 
 \item{x}{An R object}
 
-\item{digits}{How many digits to print}
-
 \item{...}{Other arguments.}
+
+\item{digits, digits.pval}{How many digits to print}
 }
 \description{
 Compute multivariate quality metrics

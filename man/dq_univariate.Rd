@@ -7,7 +7,8 @@
 \usage{
 dq_univariate(dat, cutoff = 0.05)
 
-\method{format}{dq_univariate}(x, digits = 3, digits.pct = 1, ...)
+\method{format}{dq_univariate}(x, digits = 3, digits.pct = 1,
+  digits.pval = 4, ...)
 }
 \arguments{
 \item{dat}{The input data set}
@@ -16,7 +17,7 @@ dq_univariate(dat, cutoff = 0.05)
 
 \item{x}{An R object}
 
-\item{digits, digits.pct}{How many digits to print}
+\item{digits, digits.pct, digits.pval}{How many digits to print}
 
 \item{...}{Other arguments.}
 }

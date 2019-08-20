@@ -18,7 +18,7 @@ calc_outlier <- function(x, cutoff)
 #'
 #' @param dat The input data set
 #' @param cutoff The cutoff to determine outliers.
-#' @param digits,digits.pct How many digits to print
+#' @param digits,digits.pct,digits.pval How many digits to print
 #' @param x An R object
 #' @param ... Other arguments.
 #' @details Make sure you set.seed before you run this function to get consistent results.
@@ -58,7 +58,7 @@ dq_univariate <- function(dat, cutoff = 0.05)
 
 #' @rdname dq_univariate
 #' @export
-format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
+format.dq_univariate <- function(x, digits = 3, digits.pct = 1, digits.pval = 4, ...)
 {
   sn <- function(y) stats::setNames(y, x$variable)
   ## Calculate missings (counts and percents)
@@ -85,7 +85,7 @@ format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
     trend.test = paste0(
       names(trend), " (Observation=",
       vapply(trend, function(y) y$ind.max, NA_real_), ", p-value=",
-      formatC(vapply(trend, function(y) y$pval, NA_real_), digits = digits, format = "f"), ")"
+      formatC(vapply(trend, function(y) y$pval, NA_real_), digits = digits.pval, format = "f"), ")"
     ),
     stringsAsFactors = FALSE
   )
