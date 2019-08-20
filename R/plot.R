@@ -16,7 +16,7 @@ NULL
 plot.dq_univariate <- function(x, variable, data, ...)
 {
   stopifnot(variable %in% names(data))
-  stopifnot(variable %in% names(x$variable))
+  stopifnot(variable %in% x$variable)
 
   brk <- stats::setNames(x$trend.test, x$variable)[[variable]]$ind.max
   dat2 <- data.frame(y = data[[variable]], obs = seq_len(nrow(data)), gp = c(rep("Before break", brk-1), rep("After break", nrow(data) - brk + 1)))
