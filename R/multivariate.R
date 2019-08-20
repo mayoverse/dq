@@ -66,16 +66,16 @@ dq_multivariate <- function(dat, mc.cores = getOption("mc.cores", 8L))
   )
   out <- out[order(out$p.value), ]
   row.names(out) <- NULL
-  class(out) <- c("dq_multivariate", "data.frame")
-  out
+  structure(out, class = c("dq_multivariate", "data.frame"))
 }
 
 #' @rdname dq_multivariate
 #' @export
 format.dq_multivariate <- function(x, digits = 4, ...)
 {
-  class(x) <- "data.frame"
-  x$p.value <- formatC(x$p.value, digits = digits, format = "f")
-  x
+  data.frame(
+    Observation = x$Observation,
+    p.value = formatC(x$p.value, digits = digits, format = "f")
+  )
 }
 

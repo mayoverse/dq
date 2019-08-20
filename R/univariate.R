@@ -21,6 +21,7 @@ calc_outlier <- function(x, cutoff)
 #' @param digits,digits.pct How many digits to print
 #' @param x An R object
 #' @param ... Other arguments.
+#' @details Make sure you set.seed before you run this function to get consistent results.
 #' @name dq_univariate
 NULL
 #> NULL
@@ -41,16 +42,18 @@ dq_univariate <- function(dat, cutoff = 0.05)
   outliers <- vapply(dat, calc_outlier, NA_real_, cutoff = cutoff)
   pct_outliers <- 100*outliers/nrow(dat)
 
-  structure(list(
+  out <- data.frame(
     variable = names(dat),
     missings = nmiss,
     pct.miss = pct.miss,
     skewness = skew,
     excess.kurt = kurt,
     outliers = outliers,
-    pct.outliers = pct_outliers,
-    trend.test = trend.test(dat)
-  ), class = c("dq_univariate", "data.frame"))
+    pct.outliers = pct_outliers
+  )
+  out$trend.test <- trend.test(dat)
+
+  structure(out, class = c("dq_univariate", "data.frame"))
 }
 
 #' @rdname dq_univariate
@@ -63,8 +66,8 @@ format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
   pct.miss <- sort(sn(x$pct.miss), decreasing = TRUE)
 
   ## Kurtosis
-  kurt <- sn(x$excess.kurt)[order(kurt, decreasing = TRUE, na.last = TRUE)]
-  skew <- sn(x$skewness)[order(abs(skew), decreasing = TRUE, na.last = TRUE)]
+  kurt <- sn(x$excess.kurt)[order(x$excess.kurt, decreasing = TRUE, na.last = TRUE)]
+  skew <- sn(x$skewness)[order(abs(x$skewness), decreasing = TRUE, na.last = TRUE)]
 
   ## outliers
   o <- order(x$outliers, decreasing = TRUE)
@@ -76,8 +79,8 @@ format.dq_univariate <- function(x, digits = 3, digits.pct = 1, ...)
 
   data.frame(
     missings = paste0(names(nmiss), " (", nmiss, ", ", formatC(pct.miss, digits = digits.pct, format = "f"), "%)"),
-    skewness = paste0(names(skew), " (", formatC(skew, digits = digits, format = "f"), ")"),
-    excess.kurt = paste0(names(kurt), " (", formatC(kurt, digits = digits, format = "f"), ")"),
+    skewness = paste0(names(skew), " (", trimws(formatC(skew, digits = digits, format = "f")), ")"),
+    excess.kurt = paste0(names(kurt), " (", trimws(formatC(kurt, digits = digits, format = "f")), ")"),
     outliers = paste0(names(outliers), " (", outliers, ", ", formatC(pct_outliers, digits = digits.pct, format = "f"), "%)"),
     trend.test = paste0(
       names(trend), " (Observation=",

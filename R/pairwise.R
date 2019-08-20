@@ -5,7 +5,7 @@ fac2cont.cor <- function(x, y)
   if(length(levels(as.factor(x))) > 100) return(NA_real_)
 
   fit <- stats::lm(y ~ as.factor(x))
-  return(sqrt(summary(fit)$r.squared))
+  sqrt(summary(fit)$r.squared)
 }
 
 cramersV <- function(x, y, correct=FALSE, ...)
@@ -13,7 +13,7 @@ cramersV <- function(x, y, correct=FALSE, ...)
   if(length(x) != length(y)) stop("vectors must have the same length")
   stat <- stats::chisq.test(x, y, correct = correct, ...)$statistic
   denom <- length(x) * (min(length(unique(x)), length(unique(y))) - 1)
-  return(as.numeric(sqrt(stat/denom)))
+  as.numeric(sqrt(stat/denom))
 }
 
 my_correlation <- function(x, y, data, ...)
@@ -31,7 +31,7 @@ my_correlation <- function(x, y, data, ...)
     x <- y
     y <- tmp
   }
-  return(fac2cont.cor(x, as.numeric(y)))
+  fac2cont.cor(x, as.numeric(y))
 }
 
 do_all_correlations <- function(dat)
@@ -39,7 +39,7 @@ do_all_correlations <- function(dat)
   combinations <- as.data.frame(t(utils::combn(names(dat), m = 2)), stringsAsFactors = FALSE)
   out <- mapply(my_correlation, combinations$V1, combinations$V2, MoreArgs = list(data = dat))
   names(out) <- paste(combinations$V1, "and", combinations$V2)
-  return(out[order(abs(out), decreasing = TRUE, na.last = TRUE)])
+  out[order(abs(out), decreasing = TRUE, na.last = TRUE)]
 }
 
 

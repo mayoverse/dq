@@ -23,3 +23,6 @@ dq_univariate(dat, cutoff = 0.05)
 \description{
 Compute univariate quality metrics
 }
+\details{
+Make sure you set.seed before you run this function to get consistent results.
+}
