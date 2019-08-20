@@ -1,7 +1,7 @@
 Package: dq
 Title: Tools for Data Quality
-Version: 0.1.0
-Date: 2019-08-19
+Version: 1.0.0
+Date: 2019-08-20
 Authors@R: c(
     person("Ethan", "Heinzen", email = "heinzen.ethan@mayo.edu", role = c("aut", "cre")),
     person("Curt", "Storlie", role = "aut"),
