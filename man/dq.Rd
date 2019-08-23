@@ -18,5 +18,7 @@ Tools for Data Quality.
 \code{\link{dq_pca}}
 
 \code{\link{dq_multivariate}}
+
+The various methods listed on the \code{\link{plot_dq}} help page.
 }
 

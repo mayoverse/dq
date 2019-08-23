@@ -9,6 +9,9 @@ dq_pca(dat)
 \arguments{
 \item{dat}{The input data set.}
 }
+\value{
+An object of class "dq_pca": a numeric vector containing eigenvalues.
+}
 \description{
 Get the eigenvalues of PCA
 }

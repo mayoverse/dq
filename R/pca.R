@@ -2,7 +2,7 @@
 #' Get the eigenvalues of PCA
 #'
 #' @param dat The input data set.
-#' @value An object of class "dq_pca": a numeric vector containing eigenvalues.
+#' @return An object of class "dq_pca": a numeric vector containing eigenvalues.
 #' @export
 dq_pca <- function(dat)
 {

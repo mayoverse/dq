@@ -20,6 +20,9 @@ dq_multivariate(dat, mc.cores = getOption("mc.cores", 8L))
 
 \item{digits, digits.pval}{How many digits to print}
 }
+\value{
+An object of class "dq_multivariate".
+}
 \description{
 Compute multivariate quality metrics
 }

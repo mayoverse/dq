@@ -21,6 +21,7 @@ calc_outlier <- function(x, cutoff)
 #' @param digits,digits.pct,digits.pval How many digits to print
 #' @param x An R object
 #' @param ... Other arguments.
+#' @return An object of class "dq_univariate".
 #' @details Make sure you set.seed before you run this function to get consistent results.
 #' @name dq_univariate
 NULL

@@ -21,6 +21,9 @@ dq_univariate(dat, cutoff = 0.05)
 
 \item{...}{Other arguments.}
 }
+\value{
+An object of class "dq_univariate".
+}
 \description{
 Compute univariate quality metrics
 }

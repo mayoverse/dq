@@ -9,3 +9,5 @@ There are four main functions:
 - `dq_pca()`
 
 - `dq_multivariate()`
+
+There are also methods for `plot()`, `format()`, and `summary()`.

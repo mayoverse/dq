@@ -52,6 +52,7 @@ detect.mv.outliers.par <- function(X, mc.cores){
 #' @param x An R object
 #' @param digits,digits.pval How many digits to print
 #' @param ... Other arguments.
+#' @return An object of class "dq_multivariate".
 #' @name dq_multivariate
 NULL
 #> NULL

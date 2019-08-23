@@ -63,6 +63,7 @@ corr_miss <- function(dat)
 #' @param digits How many digits to print
 #' @param x An R object
 #' @param ... Other arguments.
+#' @return An object of class "dq_pairwise".
 #' @name dq_pairwise
 NULL
 #> NULL

@@ -18,6 +18,9 @@ dq_pairwise(dat)
 
 \item{...}{Other arguments.}
 }
+\value{
+An object of class "dq_pairwise".
+}
 \description{
 Compute pairwise quality metrics
 }
