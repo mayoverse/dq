@@ -1,3 +1,7 @@
+# The `dq` package
+
+[![Travis-CI Build Status](https://travis-ci.org/eheinzen/dq.svg?branch=master)](https://travis-ci.org/eheinzen/dq)
+
 The R package behind https://rtools.mayo.edu/data_exploration/ data quality tab.
 
 There are four main functions:
