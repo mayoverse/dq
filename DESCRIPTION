@@ -1,6 +1,6 @@
 Package: dq
 Title: Tools for Data Quality
-Version: 1.0.0
+Version: 1.0.0.9000
 Date: 2019-08-20
 Authors@R: c(
     person("Ethan", "Heinzen", email = "heinzen.ethan@mayo.edu", role = c("aut", "cre")),
@@ -18,7 +18,8 @@ Imports:
     ggplot2,
     parallel
 Suggests:
-    reshape2
+    reshape2,
+    testthat (>= 2.1.0)
 LinkingTo: Rcpp
 URL: https://github.com/eheinzen/dq
 BugReports: https://github.com/eheinzen/dq/issues
