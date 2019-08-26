@@ -60,7 +60,8 @@ plot.dq_multivariate <- function(x, cutoff = 0.05, ...)
 #' @export
 plot.dq_pca <- function(x, ...)
 {
-  dat <- data.frame(x = seq_along(x), y = x)
+  eig <- cumsum(x)/sum(x)
+  dat <- data.frame(x = seq_along(x), y = eig)
   ggplot(dat, aes_string(x = "x", y = "y")) +
     geom_line() +
     geom_point() +

@@ -6,6 +6,8 @@
 
 * Added `summary()` functions.
 
+* Fixed bug in `plot.dq_pca()`. (#2)
+
 # dq 1.0.0
 
 * Initial package release.
