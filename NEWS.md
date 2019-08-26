@@ -1,4 +1,4 @@
-# dq 1.0.0.9000
+# dq 1.1.0
 
 * Fixed a bug with some edge cases for `dq_pca` (#1).
 

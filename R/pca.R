@@ -15,7 +15,7 @@ NULL
 dq_pca <- function(dat)
 {
   dat2 <- stats::model.matrix(~ . - 1, data = dat)
-  sds <- apply(dat2, 2, sd, na.rm = TRUE)
+  sds <- apply(dat2, 2, stats::sd, na.rm = TRUE)
   keep.cols <- !is.na(sds) & sds > 0
   dat2 <- dat2[, keep.cols, drop = FALSE]
   if(ncol(dat2) == 0) return(structure(numeric(0), class = "dq_pca"))
