@@ -3,23 +3,28 @@
 \name{dq_univariate}
 \alias{dq_univariate}
 \alias{format.dq_univariate}
+\alias{summary.dq_univariate}
 \title{Compute univariate quality metrics}
 \usage{
 dq_univariate(dat, cutoff = 0.05)
 
 \method{format}{dq_univariate}(x, digits = 3, digits.pct = 1,
   digits.pval = 4, ...)
+
+\method{summary}{dq_univariate}(object, n = 10, ...)
 }
 \arguments{
 \item{dat}{The input data set}
 
 \item{cutoff}{The cutoff to determine outliers.}
 
-\item{x}{An R object}
+\item{x, object}{An R object}
 
 \item{digits, digits.pct, digits.pval}{How many digits to print}
 
-\item{...}{Other arguments.}
+\item{...}{Other arguments. For \code{summary()}, these are passed to \code{format()}.}
+
+\item{n}{Number of rows to print}
 }
 \value{
 An object of class "dq_univariate".

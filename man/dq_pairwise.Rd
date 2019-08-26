@@ -3,20 +3,25 @@
 \name{dq_pairwise}
 \alias{dq_pairwise}
 \alias{format.dq_pairwise}
+\alias{summary.dq_pairwise}
 \title{Compute pairwise quality metrics}
 \usage{
 dq_pairwise(dat)
 
 \method{format}{dq_pairwise}(x, digits = 3, ...)
+
+\method{summary}{dq_pairwise}(object, n = 10, ...)
 }
 \arguments{
 \item{dat}{The input data set}
 
-\item{x}{An R object}
+\item{x, object}{An R object}
 
 \item{digits}{How many digits to print}
 
-\item{...}{Other arguments.}
+\item{...}{Other arguments. For \code{summary()}, these are passed to \code{format()}.}
+
+\item{n}{Number of rows to print}
 }
 \value{
 An object of class "dq_pairwise".

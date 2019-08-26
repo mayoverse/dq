@@ -14,4 +14,4 @@ There are four main functions:
 
 - `dq_multivariate()`
 
-There are also methods for `plot()` and `format()`.
+There are also methods for `plot()`, `format()`, and `summary()`.

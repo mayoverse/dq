@@ -11,7 +11,7 @@ fac2cont.cor <- function(x, y)
 cramersV <- function(x, y, correct=FALSE, ...)
 {
   if(length(x) != length(y)) stop("vectors must have the same length")
-  stat <- stats::chisq.test(x, y, correct = correct, ...)$statistic
+  stat <- suppressWarnings(stats::chisq.test(x, y, correct = correct, ...)$statistic)
   denom <- length(x) * (min(length(unique(x)), length(unique(y))) - 1)
   as.numeric(sqrt(stat/denom))
 }
@@ -61,8 +61,9 @@ corr_miss <- function(dat)
 #'
 #' @param dat The input data set
 #' @param digits How many digits to print
-#' @param x An R object
-#' @param ... Other arguments.
+#' @param x,object An R object
+#' @param n Number of rows to print
+#' @param ... Other arguments. For \code{summary()}, these are passed to \code{format()}.
 #' @return An object of class "dq_pairwise".
 #' @name dq_pairwise
 NULL
@@ -88,3 +89,14 @@ format.dq_pairwise <- function(x, digits = 3, ...)
                         rep("", times = length(x$correlation) - length(x$correlation.nas)))
   )
 }
+
+
+#' @rdname dq_pairwise
+#' @export
+summary.dq_pairwise <- function(object, n = 10, ...)
+{
+  out <- utils::head(format(object, ...), n)
+  colnames(out) <- c("Pairwise Correlation", "Pairwise Correlation of Missings")
+  out
+}
+

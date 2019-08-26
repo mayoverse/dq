@@ -3,20 +3,25 @@
 \name{dq_multivariate}
 \alias{dq_multivariate}
 \alias{format.dq_multivariate}
+\alias{summary.dq_multivariate}
 \title{Compute multivariate quality metrics}
 \usage{
 dq_multivariate(dat, mc.cores = getOption("mc.cores", 8L))
 
 \method{format}{dq_multivariate}(x, digits.pval = 4, ...)
+
+\method{summary}{dq_multivariate}(object, n = 10, ...)
 }
 \arguments{
 \item{dat}{The input data set}
 
 \item{mc.cores}{See \code{\link[parallel]{mclapply}}}
 
-\item{x}{An R object}
+\item{x, object}{An R object}
 
-\item{...}{Other arguments.}
+\item{...}{Other arguments. For \code{summary()}, these are passed to \code{format()}.}
+
+\item{n}{Number of rows to print}
 
 \item{digits, digits.pval}{How many digits to print}
 }

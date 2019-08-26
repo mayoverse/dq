@@ -2,12 +2,21 @@
 % Please edit documentation in R/pca.R
 \name{dq_pca}
 \alias{dq_pca}
+\alias{summary.dq_pca}
 \title{Get the eigenvalues of PCA}
 \usage{
 dq_pca(dat)
+
+\method{summary}{dq_pca}(object, cutoffs = c(0.95, 0.975, 0.99), ...)
 }
 \arguments{
 \item{dat}{The input data set.}
+
+\item{object}{An R object}
+
+\item{cutoffs}{Cutoffs for percent variance explained.}
+
+\item{...}{Other arguments.}
 }
 \value{
 An object of class "dq_pca": a numeric vector containing eigenvalues.

@@ -4,6 +4,8 @@
 
 * Added support on Travis CI
 
+* Added `summary()` functions.
+
 # dq 1.0.0
 
 * Initial package release.

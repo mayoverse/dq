@@ -49,9 +49,10 @@ detect.mv.outliers.par <- function(X, mc.cores){
 #'
 #' @param dat The input data set
 #' @param mc.cores See \code{\link[parallel]{mclapply}}
-#' @param x An R object
 #' @param digits,digits.pval How many digits to print
-#' @param ... Other arguments.
+#' @param x,object An R object
+#' @param n Number of rows to print
+#' @param ... Other arguments. For \code{summary()}, these are passed to \code{format()}.
 #' @return An object of class "dq_multivariate".
 #' @name dq_multivariate
 NULL
@@ -79,4 +80,14 @@ format.dq_multivariate <- function(x, digits.pval = 4, ...)
     p.value = formatC(x$p.value, digits = digits.pval, format = "f")
   )
 }
+
+#' @rdname dq_multivariate
+#' @export
+summary.dq_multivariate <- function(object, n = 10, ...)
+{
+  out <- utils::head(format(object, ...), n)
+  colnames(out) <- c("Observation", "P value")
+  out
+}
+
 

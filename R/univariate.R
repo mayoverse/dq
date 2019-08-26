@@ -19,8 +19,9 @@ calc_outlier <- function(x, cutoff)
 #' @param dat The input data set
 #' @param cutoff The cutoff to determine outliers.
 #' @param digits,digits.pct,digits.pval How many digits to print
-#' @param x An R object
-#' @param ... Other arguments.
+#' @param x,object An R object
+#' @param n Number of rows to print
+#' @param ... Other arguments. For \code{summary()}, these are passed to \code{format()}.
 #' @return An object of class "dq_univariate".
 #' @details Make sure you set.seed before you run this function to get consistent results.
 #' @name dq_univariate
@@ -90,4 +91,13 @@ format.dq_univariate <- function(x, digits = 3, digits.pct = 1, digits.pval = 4,
     ),
     stringsAsFactors = FALSE
   )
+}
+
+#' @rdname dq_univariate
+#' @export
+summary.dq_univariate <- function(object, n = 10, ...)
+{
+  out <- utils::head(format(object, ...), n)
+  colnames(out) <- c("Missings (count, %)", "Skewness", "Excess Kurtosis", "Outliers (count, %)", "Trend Test")
+  out
 }
