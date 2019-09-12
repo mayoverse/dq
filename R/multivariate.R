@@ -77,7 +77,8 @@ format.dq_multivariate <- function(x, digits.pval = 4, ...)
 {
   data.frame(
     Observation = x$Observation,
-    p.value = formatC(x$p.value, digits = digits.pval, format = "f")
+    p.value = formatC(x$p.value, digits = digits.pval, format = "f"),
+    stringsAsFactors = FALSE
   )
 }
 

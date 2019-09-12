@@ -34,5 +34,5 @@ summary.dq_pca <- function(object, cutoffs = c(0.95, 0.975, 0.99), ...)
   out <- lapply(cutoffs, function(cutoff) {
     min(which(cutoff <= eig))
   })
-  stats::setNames(as.data.frame(out), paste0(cutoffs*100, "%"))
+  stats::setNames(as.data.frame(out, stringsAsFactors = FALSE), paste0(cutoffs*100, "%"))
 }

@@ -83,10 +83,15 @@ dq_pairwise <- function(dat)
 #' @export
 format.dq_pairwise <- function(x, digits = 3, ...)
 {
+  cna <- if(!is.null(x$correlation.nas))
+  {
+    c(paste0(names(x$correlation.nas), " (", formatC(x$correlation.nas, digits = digits, format = "f"), ")"),
+      rep("", times = length(x$correlation) - length(x$correlation.nas)))
+  } else c("There are not 2 or more variables with missings.", rep("", times = length(x$correlation) - 1))
   data.frame(
     correlation = paste0(names(x$correlation), " (", formatC(x$correlation, digits = digits, format = "f"), ")"),
-    correlation.nas = c(paste0(names(x$correlation.nas), " (", formatC(x$correlation.nas, digits = digits, format = "f"), ")"),
-                        rep("", times = length(x$correlation) - length(x$correlation.nas)))
+    correlation.nas = cna,
+    stringsAsFactors = FALSE
   )
 }
 
