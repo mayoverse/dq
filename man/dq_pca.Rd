@@ -5,12 +5,14 @@
 \alias{summary.dq_pca}
 \title{Get the eigenvalues of PCA}
 \usage{
-dq_pca(dat)
+dq_pca(dat, na.action = stats::na.omit)
 
 \method{summary}{dq_pca}(object, cutoffs = c(0.95, 0.975, 0.99), ...)
 }
 \arguments{
 \item{dat}{The input data set.}
+
+\item{na.action}{What to do with NAs.}
 
 \item{object}{An R object}
 

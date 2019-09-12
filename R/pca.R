@@ -3,6 +3,7 @@
 #'
 #' @param dat The input data set.
 #' @param object An R object
+#' @param na.action What to do with NAs.
 #' @param cutoffs Cutoffs for percent variance explained.
 #' @param ... Other arguments.
 #' @return An object of class "dq_pca": a numeric vector containing eigenvalues.
@@ -12,7 +13,7 @@ NULL
 
 #' @rdname dq_pca
 #' @export
-dq_pca <- function(dat, na.action = na.omit)
+dq_pca <- function(dat, na.action = stats::na.omit)
 {
   default <- structure(numeric(0), class = "dq_pca")
 
