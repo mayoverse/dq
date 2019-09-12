@@ -12,13 +12,21 @@ NULL
 
 #' @rdname dq_pca
 #' @export
-dq_pca <- function(dat)
+dq_pca <- function(dat, na.action = na.omit)
 {
-  dat2 <- stats::model.matrix(~ . - 1, data = dat)
+  default <- structure(numeric(0), class = "dq_pca")
+
+  dat <- na.action(dat)
+  if(nrow(dat) == 0) return(default)
+
+  keep <- vapply(dat, function(x) is.numeric(x) || length(unique(x)) > 1, NA)
+  if(sum(keep) == 0) return(default)
+
+  dat2 <- stats::model.matrix(~ . - 1, data = dat[keep])
   sds <- apply(dat2, 2, stats::sd, na.rm = TRUE)
   keep.cols <- !is.na(sds) & sds > 0
   dat2 <- dat2[, keep.cols, drop = FALSE]
-  if(ncol(dat2) == 0) return(structure(numeric(0), class = "dq_pca"))
+  if(ncol(dat2) == 0) return(default)
   structure(
     eigen(stats::cor(dat2, use = "complete.obs"), only.values = TRUE)$values,
     class = "dq_pca"

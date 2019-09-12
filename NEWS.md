@@ -1,6 +1,8 @@
 # dq 1.1.0
 
-* Fixed a bug when no variables have missings in `format.dq_pairwise()`
+* Fixed a bug when no variables have missings in `format.dq_pairwise()`. (#3)
+
+* Fixed a bug when factors or characters have only one level in `dq_pca()`. (#4)
 
 # dq 1.1.0
 
