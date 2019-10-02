@@ -1,4 +1,4 @@
-# dq 1.1.0
+# dq 1.1.1
 
 * Fixed a bug when no variables have missings in `format.dq_pairwise()`. (#3)
 
