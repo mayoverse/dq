@@ -21,8 +21,8 @@ Suggests:
     reshape2,
     testthat (>= 2.1.0)
 LinkingTo: Rcpp
-URL: https://github.com/eheinzen/dq
-BugReports: https://github.com/eheinzen/dq/issues
+URL: https://github.com/mayoverse/dq
+BugReports: https://github.com/mayoverse/dq/issues
 License: GPL (>= 2)
 RoxygenNote: 6.1.1
 LazyData: true

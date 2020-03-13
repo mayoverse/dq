@@ -1,6 +1,6 @@
 # The `dq` package
 
-[![Travis-CI Build Status](https://travis-ci.org/eheinzen/dq.svg?branch=master)](https://travis-ci.org/eheinzen/dq)
+[![Travis-CI Build Status](https://travis-ci.org/mayoverse/dq.svg?branch=master)](https://travis-ci.org/mayoverse/dq)
 
 The R package behind https://rtools.mayo.edu/data_exploration/ data quality tab.
 
